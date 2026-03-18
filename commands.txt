@@ -1,0 +1,79 @@
+BASIC GIT COMMANDS (you’ll use these 90% of the time)
+
+📥 Pull latest changes (ALWAYS DO THIS FIRST):
+git pull
+
+➕ Add changes:
+git add .
+👉 Adds everything you changed
+
+OR (specific file):
+git add filename.py
+
+💾 Commit changes:
+git commit -m "description here"
+
+Example:
+git commit -m "Added blackjack game logic"
+
+🚀 Push to GitHub:
+git push
+
+🔄 FULL WORKFLOW (MEMORIZE THIS)
+Every time you work:
+git pull
+git add .
+git commit -m "what you did"
+git push
+
+
+🧠 CHECKING YOUR STATUS
+See what changed:
+git status
+
+See commit history:
+git log
+
+🌿 BRANCHING (VERY USEFUL)
+Create a new branch:
+git checkout -b feature-blackjack
+
+Switch branches:
+git checkout main
+
+Push new branch to GitHub:
+git push -u origin *branch name*
+
+Merge branch into main (basic way):
+git checkout main
+git pull
+git merge *branch name*
+git push
+
+
+⚠️ FIXING COMMON ISSUES
+If Git says you're behind:
+git pull
+
+If you messed up before commit:
+git restore filename.py
+
+If you want to undo last commit (but keep changes):
+git reset --soft HEAD~1
+
+If you want to discard ALL changes (be careful ⚠️):
+git reset --hard
+
+👥 TEAM RULES (IMPORTANT)
+
+Always:
+git pull
+
+BEFORE you start working
+
+💯 SIMPLE VERSION (if you forget everything)
+Just remember:
+git pull
+git add .
+git commit -m "message"
+git push
