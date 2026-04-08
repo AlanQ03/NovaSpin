@@ -1,3 +1,6 @@
+Run Server command:
+python manage.py runserver
+
 BASIC GIT COMMANDS (you’ll use these 90% of the time)
 
 📥 Pull latest changes (ALWAYS DO THIS FIRST):
