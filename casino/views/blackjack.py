@@ -6,9 +6,12 @@ def play_blackjack(request):
     user = Users.objects.get(id=request.user.id)
 
     if request.method == 'POST':
-        bet = int(request.POST.get('bet'))
+        try:
+            bet = int(request.POST.get('bet'))
+        except (ValueError, TypeError):
+            return render(request, 'casino/templates/pages/blackjack.html', {'error': 'Invalid bet amount'})
 
-        if bet > user.balance:
+        if bet <= 0 or bet > user.balance:
             return render(request, 'casino/templates/pages/blackjack.html', {'error': 'Insufficient balance'})
 
         game = Blackjack()
