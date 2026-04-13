@@ -1,4 +1,4 @@
-from utils.deck import Deck
+from casino.utils.deck import Deck
 
 class Blackjack:
     def __init__(self):

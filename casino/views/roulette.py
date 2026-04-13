@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from game_logic.roulette import Roulette
-from models import Users, GameSession
+from casino.game_logic.roulette import Roulette
+from casino.models import Users, GameSession
 
 def play_roulette(request):
     user = Users.objects.get(id=request.user.id)
