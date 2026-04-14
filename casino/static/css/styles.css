@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(200deg, rgb(0, 31, 91), rgb(61, 183, 228));
+    color: white;
+    text-align: center;
+}
+h1 {
+    font-size: 4.5rem;
+    font-family: 'Anton', sans-serif;
+    background: linear-gradient(240deg, rgb(52, 71, 235), rgba(0, 11, 64, 0.92));
+    max-width: 800px;
+    border-radius: 100px;
+    margin-left: 56px;
+    padding: 5px;
+
+}
+h2 {
+    font-size: 2rem;
+    margin-left: -700px;
+}
+p {
+    font-size: 1.5rem;
+    margin-left: 500px;
+}
+nav {
+  position: sticky;
+  top: 0;
+  background: rgb(0, 31, 91);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px black solid;
+  margin-top: -50px;
+}
+.nav-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  gap: 20px;
+}
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.nav-links a {
+  color: rgb(195, 148, 91);
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: 0.2s ease;
+}
+.nav-links a:hover {
+  color: #ffffff;
+}
+#header {
+  padding-top: 110px;
+  max-height: 1000px;
+}
+#logo {
+  width: 600px;
+  margin-left: -700px;
+}
+.side-message {
+  text-align: left;
+  padding-left: 400px;
+  margin-top: -525px;
+  text-align: center;
+}
+.side-message p{
+  max-width: 600px;
+  background: linear-gradient(60deg, rgb(52, 71, 235), rgba(0, 11, 64, 0.92));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 22px;
+  padding: 75px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.28);
+  font-weight: bold;
+}
+#blackjack {
+    margin-top: 400px;
+}
