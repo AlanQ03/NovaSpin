@@ -31,6 +31,8 @@ nav {
 }
 
 .nav-links {
+  color: rgb(195, 148, 91);
+  font-weight: bold;
   display: flex;
   flex-wrap: wrap;
   gap: 16px;

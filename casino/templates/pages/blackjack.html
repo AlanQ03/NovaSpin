@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack - NovaSpin</title>
+    <link rel="stylesheet" href="{% static 'css/bj-styles.css' %}">
+</head>
+<body>
+    <h1>Blackjack</h1>
+    <a href="{% url 'home' %}"><button type="button">Back to Home</button></a>
+    <p>Welcome to the Blackjack table! Try your luck and beat the dealer.</p>
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+    <p>Balance: {{ balance }}</p>
+
+    {% if not player_hand or result %}
+        <form method="POST">
+            {% csrf_token %}
+            <label for="bet">Bet Amount:</label>
+            <input type="number" name="bet" id="bet" min="1" required>
+            <button type="submit" name="action" value="deal">Deal</button>
+        </form>
+    {% endif %}
+
+    {% if player_hand %}
+        <h2>Current Game</h2>
+        <p>Player Hand Value: {{ player_hand }}</p>
+
+        {% if result %}
+            <p>Dealer Total: {{ dealer_hand }}</p>
+        {% else %}
+            <p>Dealer Showing: {{ dealer_hand.0 }} of {{ dealer_hand.1 }}</p>
+        {% endif %}
+    {% endif %}
+
+    {% if player_hand and not result %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="bet" value="{{ bet }}">
+            <button type="submit" name="action" value="hit">Hit</button>
+            <button type="submit" name="action" value="stand">Stand</button>
+        </form>
+    {% endif %}
+
+    {% if result %}
+        <h2>Result</h2>
+        <p>{{ result }}</p>
+        <p>Balance: {{ balance }}</p>
+
+        <form method="GET">
+            <button type="submit">Play Again</button>
+        </form>
+    {% endif %}
+</body>
+</html>
