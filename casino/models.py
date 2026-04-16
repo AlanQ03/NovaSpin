@@ -4,8 +4,11 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Users(models.Model):
-    name = models.CharField(max_length=20)  
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default='')
     balance = models.IntegerField(default=1000)
+
+    def __str__(self):
+        return self.user.username
 
 class GameSession(models.Model):
     GAME_CHOICES = [

@@ -3,17 +3,38 @@ from casino.game_logic.slots import Slots
 from casino.models import Users, GameSession
 
 def play_slots(request):
-    user = Users.objects.get(id=request.user.id)
+    if not request.user.is_authenticated:
+        return render(request, 'pages/slots.html', {'error': 'You must be logged in to play.'})
+    
+    username = request.user.username
 
-    if request.method == 'POST':
+    try:
+        user = Users.objects.get(name=username)
+    except Users.DoesNotExist:
+        return render(request, 'pages/slots.html', {'error': f'No casino user exists with username "{username}".'})
 
+    if request.method == 'GET':
+        
+        return render(request, 'pages/slots.html', {
+            'balance': user.balance
+        })
+    
+    action = request.POST.get('action')
+
+    if action == 'spin':
         try:
             bet_amount = int(request.POST.get('bet_amount'))
         except (ValueError, TypeError):
-            return render(request, 'casino/templates/pages/slots.html', {'error': 'Invalid bet amount'})
+            return render(request, 'pages/slots.html', {
+                'error': 'Invalid bet amount',
+                'balance': user.balance
+            })
         
         if bet_amount <= 0 or bet_amount > user.balance:
-            return render(request, 'casino/templates/pages/slots.html', {'error': 'Invalid bet amount'})
+            return render(request, 'pages/slots.html', {
+                'error': 'Invalid bet amount',
+                'balance': user.balance
+            })
         
         game = Slots()
         symbols = game.spin()
@@ -30,10 +51,12 @@ def play_slots(request):
             payout=payout
         )
 
-        return render(request, 'casino/templates/pages/slots.html', {
+        return render(request, 'pages/slots.html', {
             'symbols': symbols,
             'payout': payout,
             'balance': user.balance
         })
     
-    return render(request, 'casino/templates/pages/slots.html')
+    return render(request, 'pages/slots.html', {
+        'balance': user.balance
+    })
