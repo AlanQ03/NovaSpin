@@ -9,13 +9,12 @@ def play_blackjack(request):
             'error': 'You must be logged in to play.'
         })
 
-    username = request.user.username
 
     try:
-        user = Users.objects.get(name=username)
+        user, created = Users.objects.get_or_create(user=request.user)
     except Users.DoesNotExist:
         return render(request, 'pages/blackjack.html', {
-            'error': f'No casino user exists with username "{username}".'
+            'error': f'No casino user exists with username "{request.user.username}".'
         })
 
     # First page load

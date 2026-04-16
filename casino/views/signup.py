@@ -7,7 +7,7 @@ def signup(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(user=request.user.users).exists():
             return render(request, 'pages/signup.html', {
                 'error': 'Username already exists'
             })
