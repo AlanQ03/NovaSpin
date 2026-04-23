@@ -7,8 +7,8 @@ def signup(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        if User.objects.filter(user=request.user.users).exists():
-            return render(request, 'pages/signup.html', {
+        if User.objects.filter(username=username).exists():
+            return render(request, 'registration/signup.html', {
                 'error': 'Username already exists'
             })
         
@@ -21,4 +21,4 @@ def signup(request):
 
         return redirect('login')
     
-    return render(request, 'pages/signup.html')
+    return render(request, 'registration/signup.html')
