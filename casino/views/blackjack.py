@@ -17,7 +17,6 @@ def play_blackjack(request):
             'error': f'No casino user exists with username "{request.user.username}".'
         })
 
-
     if request.method == 'GET':
         request.session.pop('player_hand', None)
         request.session.pop('dealer_hand', None)
@@ -59,6 +58,8 @@ def play_blackjack(request):
             user.balance += int(bet * 1.5)
             user.save()
             result = 'win'
+
+            dealer_showing = game.calculate_hand_value(game.dealer_hand)
 
             GameSession.objects.create(
                 user=request.user,
@@ -106,6 +107,8 @@ def play_blackjack(request):
             user.balance -= bet
             user.save()
             result = 'loss'
+
+            dealer_showing = game.calculate_hand_value(game.dealer_hand)
 
             GameSession.objects.create(
                 user=request.user,
