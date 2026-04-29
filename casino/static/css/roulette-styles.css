@@ -4,144 +4,205 @@
     box-sizing: border-box;
 }
 
-html, body{
-    height: 100%;
-}
-
 body {
     min-height: 100vh;
-    background: radial-gradient(circle at top, rgb(60, 0, 0), rgb(5, 0, 0));
+    background-image: linear-gradient(rgba(10,0,0,0.35), rgba(5,0,0,0.75)), url("../images/roulette-bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
     font-family: Arial, sans-serif;
 }
 
 .roulette-page {
-    display: flex;
-    justify-content: center;
-    padding: 50px 20px;
-}
-
-.roulette-game {
-    background: rgba(0, 0, 0, 0.75);
-    border: 2px solid gold;
-    border-radius: 20px;
-    padding: 30px;
-    width: 700px;
+    max-width: 1350px;
+    margin: 0 auto;
+    padding: 20px;
     text-align: center;
 }
 
-.bet-panel {
-    margin-bottom: 25px;
+.roulette-logo {
+    width: 430px;
+    display: block;
+    margin: 0 auto -30px;
 }
 
-.bet-panel input {
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    margin: 10px;
+.back-btn {
+    color: gold;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    background: rgb(177, 33, 33);
+    padding: 10px 16px;
+    border-radius: 10px;
+}
+.back-btn:hover {
+    background-color: white;
+    color: black;
 }
 
-.roulette-board {
-    display: grid;
-    gap: 15px;
+.balance-card {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 18px 35px;
+    background: linear-gradient(145deg, rgba(90,0,0,0.9), rgba(20,0,0,0.95));
+    border: 2px solid goldenrod;
+    border-radius: 22px;
+    display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 35px;
+}
+
+.balance-card p {
+    color: gold;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.balance-card h2 {
+    color: gold;
+    font-size: 2.4rem;
+}
+
+.coin-icon {
+    font-size: 2.5rem;
+}
+
+.roulette-table {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 30px;
+    align-items: center;
+    background: linear-gradient(145deg, rgba(0,50,20,0.96), rgba(0,25,10,0.95));
+    border: 3px solid gold;
+    border-radius: 28px;
+    padding: 35px;
+    box-shadow: 0 0 45px rgba(0,0,0,0.7);
+}
+
+.wheel-img {
+    width: 250px;
+}
+
+.board-area h3 {
+    color: gold;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.board-grid {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.zero {
+    width: 55px;
+    border-radius: 10px 0 0 10px;
 }
 
 .number-grid {
     display: grid;
-    grid-template-columns: repeat(3, 80px);
-    gap: 10px;
+    grid-template-columns: repeat(12, 55px);
 }
 
 .number,
+.zero,
 .outside-bets button {
-    padding: 18px;
-    border: 2px solid gold;
-    border-radius: 10px;
-    background: darkred;
+    height: 48px;
+    border: 1px solid goldenrod;
     color: white;
     font-weight: bold;
     cursor: pointer;
+    background: #080808;
+}
+
+.number:nth-child(odd) {
+    background: #9b111e;
 }
 
 .green {
-    background: green;
+    background: #064d24;
 }
 
 .outside-bets {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 720px;
+    margin: 15px auto;
 }
 
 .outside-bets button {
-    background: black;
+    height: 55px;
+    background: rgba(0,0,0,0.65);
+    color: gold;
 }
 
 .selected {
     outline: 4px solid white;
-    transform: scale(1.08);
+    transform: scale(1.05);
+    z-index: 2;
 }
 
-button[type="submit"] {
-    background: gold;
-    color: black;
-    border: none;
-    padding: 12px 24px;
+#selected-bet {
+    color: gold;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.bet-controls {
+    margin-top: 15px;
+}
+
+.bet-controls label {
+    display: block;
+    color: gold;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.bet-controls input {
+    padding: 12px;
     border-radius: 10px;
+    border: 2px solid goldenrod;
+    text-align: center;
+    font-size: 1.1rem;
+    margin-right: 10px;
+}
+
+.spin-btn {
+    padding: 14px 45px;
+    border-radius: 18px;
+    border: 2px solid gold;
+    background: linear-gradient(#2d8a31, #075c18);
+    color: gold;
+    font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
 }
 
+.spin-btn:hover {
+    background: gold;
+    color: black;
+}
+
 .result-box {
-    margin-top: 25px;
-    padding: 20px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 14px;
-}
-
-.roulette-top {
-    max-width: 1000px;
-    margin: 25px auto 30px;
-    padding: 20px 30px;
-    background: linear-gradient(145deg, rgba(70, 0, 0, 0.9), rgba(10, 0, 0, 0.95));
+    max-width: 700px;
+    margin: 25px auto;
+    padding: 25px;
+    background: rgba(0,0,0,0.8);
     border: 2px solid gold;
-    border-radius: 22px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 0 35px rgba(255, 215, 0, 0.2);
+    border-radius: 20px;
 }
 
-.roulette-title-area {
-    text-align: center;
-}
-
-.casino-label {
-    color: gold;
-    letter-spacing: 4px;
-    font-size: 0.85rem;
-    margin-bottom: 6px;
-}
-
-.roulette-title-area h1 {
-    font-size: 3.5rem;
-    color: white;
-    text-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
-}
-
-.home-btn {
-    color: gold;
-    text-decoration: none;
+.error {
+    background: white;
+    color: black;
     font-weight: bold;
-}
-
-.home-btn:hover {
-    color: white;
-}
-
-.balance {
-    color: gold;
-    font-weight: bold;
-    font-size: 1.1rem;
+    width: fit-content;
+    margin: 10px auto;
+    padding: 8px 16px;
+    border-radius: 8px;
 }

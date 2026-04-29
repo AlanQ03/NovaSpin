@@ -15,7 +15,8 @@ def play_roulette(request):
     if request.method == 'GET':
 
         return render(request, 'pages/roulette.html', {
-            'balance': user.balance
+            'balance': user.balance,
+            'numbers': range(1, 37)
         })
         
     action = request.POST.get('action')
@@ -26,7 +27,8 @@ def play_roulette(request):
         except (ValueError, TypeError):
             return render(request, 'pages/roulette.html', {
                 'error': 'Invalid bet amount',
-                'balance': user.balance
+                'balance': user.balance,
+                'numbers': range(1, 37)
             })
         
         choice = request.POST.get('choice')
@@ -37,7 +39,8 @@ def play_roulette(request):
         if bet_amount <= 0 or bet_amount > user.balance:
             return render(request, 'pages/roulette.html', {
                 'error': 'Invalid bet amount',
-                'balance': user.balance
+                'balance': user.balance,
+                'numbers': range(1, 37)
             })
         
         game = Roulette()
@@ -70,10 +73,12 @@ def play_roulette(request):
         return render(request, 'pages/roulette.html', {
             'roll': roll,
             'payout': payout,
-            'balance': user.balance
+            'balance': user.balance,
+            'numbers': range(1, 37)
         })
 
     return render(request, 'pages/roulette.html', {
-        'balance': user.balance
+        'balance': user.balance,
+        'numbers': range(1, 37)
     })
 
