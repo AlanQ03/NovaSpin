@@ -10,13 +10,13 @@ class Roulette:
                         {'number': 26, 'color': 'black'}, {'number': 27, 'color': 'red'}, {'number': 28, 'color': 'black'}, {'number': 29, 'color': 'black'}, {'number': 30, 'color': 'red'},
                         {'number': 31, 'color': 'black'}, {'number': 32, 'color': 'red'}, {'number': 33, 'color': 'black'}, {'number': 34, 'color': 'red'}, {'number': 35, 'color': 'black'},
                         {'number': 36, 'color': 'red'}]
-        def spin(self):
-            return random.choice(self.NUMBERS)
-        
-        def calculate_payout(self, bet_type, bet_amount):
-            if bet_type == 'number':
-                return bet_amount * 35
-            elif bet_type == 'other':
-                return bet_amount * 2
+    def spin(self):
+        return random.choice(self.NUMBERS)
+    
+    def calculate_payout(self, bet_type, bet_amount):
+        if bet_type == 'number':
+            return bet_amount * 35
+        elif bet_type == 'other':
+            return bet_amount * 2
             
             

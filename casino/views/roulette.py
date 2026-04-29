@@ -4,13 +4,13 @@ from casino.models import Users, GameSession
 
 def play_roulette(request):
     if not request.user.is_authenticated:
-        return render(request, 'pages/slots.html', {'error': 'You must be logged in to play.'})
+        return render(request, 'pages/roulette.html', {'error': 'You must be logged in to play.'})
 
 
     try:
         user, created = Users.objects.get_or_create(user=request.user)
     except Users.DoesNotExist:
-        return render(request, 'pages/slots.html', {'error': f'No casino user exists with username "{request.user.username}".'})
+        return render(request, 'pages/roulette.html', {'error': f'No casino user exists with username "{request.user.username}".'})
 
     if request.method == 'GET':
 
@@ -30,6 +30,9 @@ def play_roulette(request):
             })
         
         choice = request.POST.get('choice')
+
+        if choice and choice.isdigit():
+            choice = int(choice)
 
         if bet_amount <= 0 or bet_amount > user.balance:
             return render(request, 'pages/roulette.html', {

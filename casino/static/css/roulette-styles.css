@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body{
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, rgb(60, 0, 0), rgb(5, 0, 0));
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.roulette-page {
+    display: flex;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+.roulette-game {
+    background: rgba(0, 0, 0, 0.75);
+    border: 2px solid gold;
+    border-radius: 20px;
+    padding: 30px;
+    width: 700px;
+    text-align: center;
+}
+
+.bet-panel {
+    margin-bottom: 25px;
+}
+
+.bet-panel input {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin: 10px;
+}
+
+.roulette-board {
+    display: grid;
+    gap: 15px;
+    justify-content: center;
+}
+
+.number-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    gap: 10px;
+}
+
+.number,
+.outside-bets button {
+    padding: 18px;
+    border: 2px solid gold;
+    border-radius: 10px;
+    background: darkred;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.green {
+    background: green;
+}
+
+.outside-bets {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.outside-bets button {
+    background: black;
+}
+
+.selected {
+    outline: 4px solid white;
+    transform: scale(1.08);
+}
+
+button[type="submit"] {
+    background: gold;
+    color: black;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.result-box {
+    margin-top: 25px;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 14px;
+}
+
+.roulette-top {
+    max-width: 1000px;
+    margin: 25px auto 30px;
+    padding: 20px 30px;
+    background: linear-gradient(145deg, rgba(70, 0, 0, 0.9), rgba(10, 0, 0, 0.95));
+    border: 2px solid gold;
+    border-radius: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 35px rgba(255, 215, 0, 0.2);
+}
+
+.roulette-title-area {
+    text-align: center;
+}
+
+.casino-label {
+    color: gold;
+    letter-spacing: 4px;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+}
+
+.roulette-title-area h1 {
+    font-size: 3.5rem;
+    color: white;
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
+}
+
+.home-btn {
+    color: gold;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.home-btn:hover {
+    color: white;
+}
+
+.balance {
+    color: gold;
+    font-weight: bold;
+    font-size: 1.1rem;
+}

@@ -8,11 +8,15 @@
         <link rel="stylesheet" href="{% static 'css/roulette-styles.css' %}">
     </head>
     <body>
-        <nav class="nav-container">
-            <h1>Roulette</h1>
-            <img src="{% static 'images/roulette-logo.png' %}" id="roulette-logo">
-            <p class="balance">Balance: {{ balance }}</p>
-            <a href="{% url 'home' %}" class="home-btn">Back to Home</a>
+        <nav class="roulette-top">
+            <a href="{% url 'home' %}" class="home-btn">← Back to Home</a>
+        
+            <div class="roulette-title-area">
+                <p class="casino-label">NovaSpin Casino</p>
+                <h1>Roulette</h1>
+            </div>
+        
+            <p class="balance">Balance: ${{ balance }}</p>
         </nav>
 
         {% if error %}
@@ -20,6 +24,78 @@
         {% endif %}
 
         <main class="roulette-page">
+            <section class="roulette-game">
             
+                <form method="POST" id="roulette-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="spin">
+                
+                    <div class="bet-panel">
+                        <label for="bet_amount">Bet Amount:</label>
+                        <input type="number" name="bet_amount" id="bet_amount" min="1" required>
+                    
+                        <input type="hidden" name="choice" id="choice-input">
+                    
+                        <p id="selected-bet">Selected Bet: None</p>
+                        <button type="submit">Spin</button>
+                    </div>
+                
+                    <div class="roulette-board">
+                        <button type="button" class="number green" data-choice="0">0</button>
+                    
+                    <div class="number-grid">
+                        {% for n in numbers %}
+                            <button type="button" class="number" data-choice="{{ n }}">
+                                {{ n }}
+                            </button>
+                        {% endfor %}
+                    </div>
+                    
+                        <div class="outside-bets">
+                            <button type="button" data-choice="red">Red</button>
+                            <button type="button" data-choice="black">Black</button>
+                            <button type="button" data-choice="even">Even</button>
+                            <button type="button" data-choice="odd">Odd</button>
+                        </div>
+                    </div>
+                </form>
+            
+                {% if roll %}
+                    <div class="result-box">
+                        <h2>Result</h2>
+                        <p>Number: {{ roll.number }}</p>
+                        <p>Color: {{ roll.color }}</p>
+                        <p>Payout: {{ payout }}</p>
+                        <p>Balance: {{ balance }}</p>
+                    </div>
+                {% endif %}
+                
+            </section>
         </main>
+
+        <script>
+            const choiceInput = document.getElementById("choice-input");
+            const selectedBet = document.getElementById("selected-bet");
+            const betButtons = document.querySelectorAll("[data-choice]");
+        
+            betButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    const choice = this.dataset.choice;
+                    choiceInput.value = choice;
+                    selectedBet.textContent = "Selected Bet: " + choice;
+                
+                    betButtons.forEach(btn => btn.classList.remove("selected"));
+                    this.classList.add("selected");
+                });
+            });
+        
+            document.getElementById("roulette-form").addEventListener("submit", function(event) {
+                if (!choiceInput.value) {
+                    event.preventDefault();
+                    alert("Please click a bet on the roulette board first.");
+                }
+            });
+        </script>
+
+    </body>
 </html>
