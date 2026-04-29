@@ -16,6 +16,8 @@
           <div class="nav-links">
             <a href="#header">Home</a>
             <a href="#blackjack">Blackjack</a>
+            <a href="#roulette">Roulette</a>
+            <a href="#slots">Slots</a>
             {% if request.user.is_authenticated %}
             <p>Welcome, {{ request.user.username }}</p>
             
@@ -46,20 +48,29 @@
         </div>
       </div>
 
-    <section id="blackjack">
+
+    <section id="blackjack" class="game-section">
+      <div class="game-panel">
         <h2>Blackjack</h2>
+        <p>Try your luck at our Blackjack tables and beat the dealer.</p>
         <a href="{% url 'blackjack' %}"><button>Play Blackjack</button></a>
-        <p>Try your luck at our Blackjack tables and beat the dealer!</p>
+      </div>
     </section>
 
-    <section id="roulette">
+    <section id="roulette" class="game-section">
+      <div class="game-panel">
         <h2>Roulette</h2>
-        <p>Spin the wheel and see where it lands! Will you hit the jackpot?</p>
+        <p>Spin the wheel and see where it lands.</p>
+        <a href="{% url 'roulette' %}"><button>Play Roulette</button></a>
+      </div>
     </section>
 
-     <section id="slots">
+    <section id="slots" class="game-section">
+      <div class="game-panel">
         <h2>Slots</h2>
-        <p>Pull the lever and watch the reels spin! Will you strike it rich?</p>
+        <p>Pull the lever and watch the reels spin.</p>
+        <a href="{% url 'slots' %}"><button>Play Slots</button></a>
+      </div>
     </section>
 
 </body>
