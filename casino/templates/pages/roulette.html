@@ -42,7 +42,9 @@
 
                     <div class="number-grid">
                         {% for n in numbers %}
-                            <button type="button" class="number" data-choice="{{ n }}">{{ n }}</button>
+                            <button class="number {{ n.color }}" name="choice" value="{{ n.number }}">
+                                {{ n.number }}
+                            </button>
                         {% endfor %}
                     </div>
                 </div>

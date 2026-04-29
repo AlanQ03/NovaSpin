@@ -119,8 +119,12 @@ body {
     background: #080808;
 }
 
-.number:nth-child(odd) {
+.red {
     background: #9b111e;
+}
+
+.black {
+    background: #0a0a0a;
 }
 
 .green {

@@ -12,11 +12,13 @@ def play_roulette(request):
     except Users.DoesNotExist:
         return render(request, 'pages/roulette.html', {'error': f'No casino user exists with username "{request.user.username}".'})
 
+    game = Roulette()
+
     if request.method == 'GET':
 
         return render(request, 'pages/roulette.html', {
             'balance': user.balance,
-            'numbers': range(1, 37)
+            'numbers': game.NUMBERS
         })
         
     action = request.POST.get('action')
@@ -28,7 +30,7 @@ def play_roulette(request):
             return render(request, 'pages/roulette.html', {
                 'error': 'Invalid bet amount',
                 'balance': user.balance,
-                'numbers': range(1, 37)
+                'numbers': game.NUMBERS
             })
         
         choice = request.POST.get('choice')
@@ -40,11 +42,11 @@ def play_roulette(request):
             return render(request, 'pages/roulette.html', {
                 'error': 'Invalid bet amount',
                 'balance': user.balance,
-                'numbers': range(1, 37)
+                'numbers': game.NUMBERS
             })
         
-        game = Roulette()
         roll = game.spin()
+
         if choice == roll['number']:
             payout = game.calculate_payout('number', bet_amount)
         elif choice == roll['color']:
@@ -74,11 +76,11 @@ def play_roulette(request):
             'roll': roll,
             'payout': payout,
             'balance': user.balance,
-            'numbers': range(1, 37)
+            'numbers': game.NUMBERS
         })
 
     return render(request, 'pages/roulette.html', {
         'balance': user.balance,
-        'numbers': range(1, 37)
+        'numbers': game.NUMBERS
     })
 
