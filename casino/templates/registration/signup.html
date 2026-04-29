@@ -1,37 +1,53 @@
 <!DOCTYPE html>
 {% load static %}
-<html>
+<html lang="en">
 <head>
-    <title>Sign Up</title>
+    <meta charset="UTF-8">
+    <title>Sign Up - NovaSpin</title>
+
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Create Account</h1>
 
-    {% if error %}
-        <p>{{ error }}</p>
-    {% endif %}
+<div class="auth-container">
 
-    <form method="post">
-        {% csrf_token %}
+    <div class="auth-card">
 
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required>
+        <img src="{% static 'images/NovaspinLogo.png' %}" class="logo">
 
-        <br><br>
+        <h1 class="title">Create Account</h1>
+        <p class="subtitle">Join NovaSpin and start playing</p>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
+        {% if error %}
+            <div class="error-box">
+                {{ error }}
+            </div>
+        {% endif %}
 
-        <br><br>
+        <form method="post" class="auth-form">
+            {% csrf_token %}
 
-        <label for="confirm_password">Confirm Password:</label>
-        <input type="password" name="confirm_password" id="confirm_password" required>
+            <label>Username</label>
+            <input type="text" name="username" required>
 
-        <br><br>
+            <label>Password</label>
+            <input type="password" name="password" required>
 
-        <button type="submit">Sign Up</button>
-    </form>
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" required>
 
-    <p>Already have an account? <a href="/accounts/login/">Log in</a></p>
+            <button type="submit" class="auth-btn">Sign Up</button>
+        </form>
+
+        <p class="switch-text">
+            Already have an account?
+            <a href="{% url 'login' %}">Log in</a>
+        </p>
+
+    </div>
+
+</div>
+
 </body>
 </html>
