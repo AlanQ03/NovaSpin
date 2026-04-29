@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Roulette - NovaSpin</title>
+        <link rel="stylesheet" href="{% static 'css/roulette-styles.css' %}">
+    </head>
+    <body>
+        <nav class="nav-container">
+            <h1>Roulette</h1>
+            <img src="{% static 'images/roulette-logo.png' %}" id="roulette-logo">
+            <p class="balance">Balance: {{ balance }}</p>
+            <a href="{% url 'home' %}" class="home-btn">Back to Home</a>
+        </nav>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <main class="roulette-page">
+            
+        </main>
+</html>
