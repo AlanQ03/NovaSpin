@@ -10,7 +10,6 @@ body {
     color: white;
     min-height: 100vh;
     text-align: center;
-    padding: 30px;
 }
 
 .slots-main {
@@ -19,8 +18,8 @@ body {
 }
 
 .logo {
-    width: 160px;
-    margin: 20px auto;
+    width: 400px;
+    margin: 0px auto -20px;
     display: block;
 }
 
