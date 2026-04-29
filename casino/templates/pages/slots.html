@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slots - NovaSpin</title>
+    <link rel="stylesheet" href="{% static 'css/slots-styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <img src="{% static 'images/NovaspinLogo.png' %}" alt="NovaSpin Logo" class="logo">
+
+    <nav class="top-nav">
+        <a href="{% url 'home' %}" class="back-btn">
+            <span class="back-arrow">&#8592</span> Back to Home
+        </a>
+    </nav>
+
+    <main class="slots-main">
+
+        <header class="page-header">
+            <p class="page-eyebrow"> NovaSpin Casino </p>
+            <h1 class="page-title"> Slots </h1>
+        </header>
+
+        {% if error %}
+            <div class="alert-box">
+                <span class="alert-icon">&#9888;</span> {{ error }}
+            </div>
+        {% endif %}
+
+        <div class="balance-card">
+            <span class="balance-label">Your balance</span>
+            <span class="balance-amount" id="balance-display">
+                ${% if balance %}{{ balance }}{% else %}&#8212;{% endif %}
+            </span>
+        </div>
+
+        <div class="machine-cabinet" id="machine">
+
+            <div class="reels">
+                <div class="payline top"></div>
+                <div class="payline bottom"></div>
+                <div class="reels-row" id="reels-row">
+                    {% if symbols %}
+                        {% for sym in symbols %}
+                            <div class="reel {% if symbols.0 == symbols.1 and symbols.1 == symbols.2 %}reel--match{% endif %}" id="reel-{{ forloop.counter0 }}">
+                            <div class="reel-face">{{ sym }}</div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="reel reel--idle" id="reel-0"><div class="reel-face">?</div></div>
+                        <div class="reel reel--idle" id="reel-1"><div class="reel-face">?</div></div>
+                        <div class="reel reel--idle" id="reel-2"><div class="reel-face">?</div></div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if payout is not None %}
+                <div class="result-banner {% if payout > 0 %}result-banner--win{% else %}result-banner--loss{% endif %}">
+                    {% if payout > 0 %}
+                        <span class="result-icon">&#10024;</span>
+                        <span class="result-text">You won <strong>{{ payout }}</strong>!</span>
+                        <span class="result-icon">&#10024;</span>
+                    {% else %}
+                        <span class="result-text">No match &mdash; better luck next time!</span>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            <div class="controls-panel">
+                <form method="POST" id="slots-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="spin">
+ 
+                    <div class="bet-group">
+                        <label class="bet-label" for="bet_amount">Bet Amount</label>
+                        <div class="bet-input-row">
+                            <button type="button" class="bet-adj" onclick="adjustBet(-10)">&#8722;</button>
+                            <input
+                                type="number"
+                                name="bet_amount"
+                                id="bet_amount"
+                                class="bet-input"
+                                value="{{ bet_amount|default:10 }}"
+                                min="1"
+                                {% if balance %}max="{{ balance }}"{% endif %}
+                            >
+                            <button type="button" class="bet-adj" onclick="adjustBet(10)">&#43;</button>
+                        </div>
+                        <div class="quick-bets">
+                            <button type="button" class="qb" onclick="setBet(10)">$10</button>
+                            <button type="button" class="qb" onclick="setBet(25)">$25</button>
+                            <button type="button" class="qb" onclick="setBet(50)">$50</button>
+                            <button type="button" class="qb" onclick="setBet(100)">$100</button>
+                            {% if balance is not none %}<button type="button" class="qb qb--max" onclick="setBet('{{ balance }}')">MAX</button>{% endif %}
+                        </div>
+                    </div>
+ 
+                    <button
+                        type="submit"
+                        class="spin-btn"
+                        id="spin-btn"
+                        {% if not balance %}disabled{% endif %}
+                    >
+                        SPIN
+                    </button>
+                </form>
+            </div>
+ 
+        </div>
+ 
+        <details class="paytable-details">
+            <summary class="paytable-summary">View Pay Table</summary>
+            <div class="paytable">
+                <table>
+                    <thead>
+                        <tr><th>Combination</th><th>Multiplier</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>💎 💎 💎</td><td>&times;50</td></tr>
+                        <tr><td>🔔 🔔 🔔</td><td>&times;20</td></tr>
+                        <tr><td>🍇 🍇 🍇</td><td>&times;10</td></tr>
+                        <tr><td>🍊 🍊 🍊</td><td>&times;8</td></tr>
+                        <tr><td>🍋 🍋 🍋</td><td>&times;6</td></tr>
+                        <tr><td>🍒 🍒 🍒</td><td>&times;4</td></tr>
+                        <tr><td>Any two match</td><td>&times;1.5</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+    </main>
+    
+<script>
+function setBet(amount) {
+    const input = document.getElementById("bet_amount");
+    const max = parseInt(input.max) || 999999;
+
+    amount = parseInt(amount);
+
+    if (amount > max) amount = max;
+    if (amount < 1) amount = 1;
+
+    input.value = amount;
+}
+
+function adjustBet(change) {
+    const input = document.getElementById("bet_amount");
+    const max = parseInt(input.max) || 999999;
+
+    let current = parseInt(input.value) || 0;
+    let newValue = current + change;
+
+    if (newValue > max) newValue = max;
+    if (newValue < 1) newValue = 1;
+
+    input.value = newValue;
+}
+</script>
+
+</body>
+</html>

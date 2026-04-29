@@ -57,5 +57,6 @@ def play_slots(request):
         })
     
     return render(request, 'pages/slots.html', {
+        'error': 'Invalid action',
         'balance': user.balance
     })
