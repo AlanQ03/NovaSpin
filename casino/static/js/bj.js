@@ -63,7 +63,7 @@ document.querySelectorAll(".video-form, .hit-stand-form").forEach(form => {
 
         const activeVideo = getActiveVideo();
         activeVideo.currentTime = 0;
-        activeVideo.playbackRate = 2;
+        activeVideo.playbackRate = 2.2;
         activeVideo.play();
 
         activeVideo.onended = function () {
