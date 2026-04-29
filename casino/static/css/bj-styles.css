@@ -3,12 +3,16 @@
     padding: 0;
     box-sizing: border-box;
 }
+html, body{
+    height: 100%;
+}
 
 body {
     background-image: url('../../static/images/bjbg.png');
     background-size: cover;    
     background-position: center;   
-    background-repeat: no-repeat;  
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: white;
     font-family: Arial, sans-serif;
     min-height: 100vh;

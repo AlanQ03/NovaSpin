@@ -22,6 +22,6 @@ class Slots:
             elif symbols[0] == '💎':
                 return bet_amount * 50
         elif len(set(symbols)) == 2:
-            return bet_amount * 1.5
+            return bet_amount * 2
         else:
             return -bet_amount
