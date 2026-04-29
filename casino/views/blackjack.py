@@ -17,9 +17,7 @@ def play_blackjack(request):
             'error': f'No casino user exists with username "{request.user.username}".'
         })
 
-    # First page load
     if request.method == 'GET':
-        # optional: clear any old round when page is refreshed
         request.session.pop('player_hand', None)
         request.session.pop('dealer_hand', None)
         request.session.pop('bet', None)
@@ -31,7 +29,6 @@ def play_blackjack(request):
     action = request.POST.get('action')
     result = None
 
-    # START A BRAND NEW ROUND
     if action == 'deal':
         try:
             bet = int(request.POST.get('bet'))
@@ -50,7 +47,6 @@ def play_blackjack(request):
         game = Blackjack()
         game.deal_initial_cards()
 
-        # Save ONLY simple data
         request.session['player_hand'] = game.player_hand
         request.session['dealer_hand'] = game.dealer_hand
         request.session['bet'] = bet
@@ -58,11 +54,12 @@ def play_blackjack(request):
         player_total = game.calculate_hand_value(game.player_hand)
         dealer_showing = game.dealer_hand[0]
 
-        # immediate blackjack
         if player_total == 21:
             user.balance += int(bet * 1.5)
             user.save()
             result = 'win'
+
+            dealer_showing = game.calculate_hand_value(game.dealer_hand)
 
             GameSession.objects.create(
                 user=request.user,
@@ -84,7 +81,6 @@ def play_blackjack(request):
             'result': result
         })
 
-    # HIT OR STAND MUST USE AN EXISTING ROUND
     player_hand = request.session.get('player_hand')
     dealer_hand = request.session.get('dealer_hand')
     bet = request.session.get('bet')
@@ -98,14 +94,12 @@ def play_blackjack(request):
     game = Blackjack()
     game.player_hand = player_hand
     game.dealer_hand = dealer_hand
-    # IMPORTANT: do NOT assign game.deck from session
 
     if action == 'hit':
         game.player_hit()
         player_total = game.calculate_hand_value(game.player_hand)
         dealer_showing = game.dealer_hand[0]
 
-        # Save updated hands
         request.session['player_hand'] = game.player_hand
         request.session['dealer_hand'] = game.dealer_hand
 
@@ -113,6 +107,8 @@ def play_blackjack(request):
             user.balance -= bet
             user.save()
             result = 'loss'
+
+            dealer_showing = game.calculate_hand_value(game.dealer_hand)
 
             GameSession.objects.create(
                 user=request.user,
